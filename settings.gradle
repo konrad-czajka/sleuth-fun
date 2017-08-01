@@ -1,9 +1,1 @@
 include 'app-a'
-include 'app-b'
-include 'app-c'
-include 'app-d'
-include 'eureka'
-include 'gateway'
-include 'shared'
-include 'zipkin'
-

@@ -27,8 +27,11 @@ ext {
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-sleuth')
+	compile project(':shared')
+	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	compileOnly('org.projectlombok:lombok')
 }
 

@@ -5,41 +5,32 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
-
 @EnableEurekaClient
 @SpringBootApplication
-public class AppBApplication {
+public class AppCApplication {
 	@Bean
 	RestOperations restOperations() {
 		return new RestTemplate();
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppBApplication.class, args);
+		SpringApplication.run(AppCApplication.class, args);
 	}
 }
 
 @RestController
 @AllArgsConstructor
-class AppBController {
+class AppCController {
 	private final RestOperations webClient;
-	private final MyEventsSource eventsSource;
 
-	@GetMapping("/hello")
-	public String start(@RequestParam String name) {
-		String count = webClient.getForObject("http://localhost:8083/count?word=" + name, String.class);
-
-		MyEvent event = new MyEvent(UUID.randomUUID().toString(), String.format("%s(%s)", name, count));
-		eventsSource.eventsChannel().send(new GenericMessage<>(event));
-
-		return "Hello, " + name;
+	@GetMapping("/count")
+	public String start(@RequestParam String word) {
+		return String.valueOf(word.length());
 	}
 }
